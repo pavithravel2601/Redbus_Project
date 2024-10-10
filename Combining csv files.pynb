@@ -36,18 +36,3 @@ df['Price'] = df['Price'].str.replace('INR ', '')
 
 #extract the digits(0-9)
 df['Seat_Availability'] = df['Seat_Availability'].str.extract('(\d+)')
-
-#python mysql connection
-import pymysql
-myconnection = pymysql.connect(host='127.0.0.1', user='root',passwd='12345678',database="redbus")
-df = pd.read_csv("bus_routes.csv")
-df = df.dropna() #drop null values
-
-a = ",".join(f"{i} {j}" for i,j in zip(df.columns,df.dtypes)).replace("float64","float").replace("object","text").replace("int64","int") #replace dtypes from pandas to mysql
-table_name = "bus_routes"
-#{a} contains the column names and the data type of the table
-
-myconnection.cursor().execute(f"create table {table_name} ({a})")
-for i in range(len(df)):
-    myconnection.cursor().execute(f"insert into {table_name} values {tuple(df.iloc[i])}")
-    myconnection.commit()
