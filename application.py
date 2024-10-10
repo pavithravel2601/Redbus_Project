@@ -12,7 +12,7 @@ cursor = con.cursor()
 cursor.execute("use redbus_project")
 
 # Load CSV Data
-df = pd.read_csv("C:/Users/pavelkannan/Guvi/Redbus_Project/bus_routes.csv")
+df = pd.read_sql('SELECT * FROM Redbus_routes', conn)
 
 # Clean the 'Price' column: Remove non-numeric characters and convert to numeric
 df['Price'] = df['Price'].replace('[\$,]', '', regex=True)  # Remove any commas or dollar signs if present
