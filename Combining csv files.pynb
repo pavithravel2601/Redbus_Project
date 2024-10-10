@@ -31,8 +31,3 @@ id_column = pd.Series(range(1, len(df) + 1), name='id')
 df = pd.concat([id_column, df], axis=1)
 df = pd.read_csv("bus_routes.csv")
 
-# replace string to empty string
-df['Price'] = df['Price'].str.replace('INR ', '')
-
-#extract the digits(0-9)
-df['Seat_Availability'] = df['Seat_Availability'].str.extract('(\d+)')
